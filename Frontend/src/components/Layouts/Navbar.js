@@ -20,6 +20,9 @@ const Navbar = () => {
     const handleSignUp = () => {
         navigate('/signup');
     }
+    const goToHome = () => {
+        navigate('/');
+    }
     return (
         <Stack
             p={5}
@@ -33,7 +36,9 @@ const Navbar = () => {
             >
                 <Heading as='h3' ml={{ base: 0, sm: 8 }} size='lg' fontWeight={'thin'} color='#1170CD' style={{ fontFamily: "Pacifico" }}>Quick-CV</Heading>
                 <HStack spacing={10} mr={{ base: 0, sm: 8 }} as='nav' style={{ fontFamily: 'Poppins' }}>
-                    <Text as='a' href='#' fontSize='lg'>Home</Text>
+                    <Button as='a' href='#' fontSize='lg'
+                    onClick={goToHome}
+                    >Home</Button>
                     <Text as='a' href='#' fontSize='lg'>Templates</Text>
                     <Text as='a' href='#' fontSize='lg'>About</Text>
                     <Text colorScheme={'purple'} fontWeight={'medium'}>Contact</Text>

@@ -6,7 +6,7 @@ import Navbar from './components/Layouts/Navbar';
 import Footer from './components/Layouts/Footer';
 import Main from './components/Main';
 import WebFont from 'webfontloader';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes , useLocation} from 'react-router-dom';
 import Login from './components/LoginSignUp/Login'; 
 import Signup from './components/LoginSignUp/SignUp';
 function App() {
@@ -23,16 +23,29 @@ function App() {
 <Router> 
       <ResumeProvider>
         <Navbar />
-        <Header />
-        <Main />
+        <ConditionalRendering/>
         <Footer />
-        <Routes>
-          <Route path="/login" element={<Login />} /> 
-          <Route path="/signup" element={<Signup />} /> 
-        </Routes>
       </ResumeProvider>
     </Router>
   );
+}
+
+const ConditionalRendering = () => {
+  const location = useLocation();
+  if(location.pathname === '/login' || location.pathname === '/signup'){
+  return(
+    <Routes>
+    <Route path="/login" element={<Login />} /> 
+    <Route path="/signup" element={<Signup />} /> 
+  </Routes>
+  );
+}
+  return(
+    <>
+            <Header />
+            <Main />
+    </>
+  )
 }
 
 export default App;

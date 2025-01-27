@@ -13,8 +13,16 @@ import ThemeSelect from './Theme/ThemeSelect';
 import { useReactToPrint } from 'react-to-print';
 import { useResume } from '../Context';
 import { MdOutlineFileDownload } from 'react-icons/md';
+import {useNavigate} from 'react-router-dom'
 
 const Main = () => {
+    
+    const login = true;
+
+    const navigate = useNavigate();
+    const handleLogin = () => {
+        navigate('/login')
+    }
 
     const { printElem } = useResume();
 
@@ -36,7 +44,7 @@ const Main = () => {
 
                 <Stack justifyContent={'space-between'} pt={4} direction={{ base: 'column', sm: 'row' }}>
                     <ThemeSelect />
-                    <Button rightIcon={<MdOutlineFileDownload />} onClick={handlePrint} colorScheme={'purple'}>Download</Button>
+                    <Button rightIcon={<MdOutlineFileDownload />} onClick={login ? handlePrint : handleLogin } disabled={login ? false : true} colorScheme={'purple'}>{login ? 'Download' : "Login to Download"}</Button>
                 </Stack>
 
             </Container>
