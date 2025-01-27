@@ -1,4 +1,5 @@
 import { IconButton } from '@chakra-ui/button';
+import {useNavigate} from "react-router-dom"
 import {
     Stack,
     Flex,
@@ -10,6 +11,15 @@ import {
 } from "@chakra-ui/react";
 
 const Navbar = () => {
+
+    const navigate = useNavigate();
+
+    const handleLogin =() => {
+        navigate('/login')
+    };
+    const handleSignUp = () => {
+        navigate('/signup');
+    }
     return (
         <Stack
             p={5}
@@ -32,11 +42,15 @@ const Navbar = () => {
                     <Button className = "logSbtn" style={{
                         background:"#5245A8",
                         color:"white"
-                    }}>Login</Button>
+                    }}
+                    onClick={handleLogin}
+                    >Login</Button>
                     <Button className = "logSbtn" style={{
                         background:"#5245A8",
                         color:"white"
-                    }}>Signup</Button>
+                    }}
+                    onClick={handleSignUp}
+                    >Signup</Button>
                 </HStack>
             </Flex>
 
