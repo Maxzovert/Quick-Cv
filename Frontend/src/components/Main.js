@@ -14,10 +14,19 @@ import { useReactToPrint } from 'react-to-print';
 import { useResume } from '../Context';
 import { MdOutlineFileDownload } from 'react-icons/md';
 import {useNavigate} from 'react-router-dom'
+import { useEffect, useState } from "react";
 
 const Main = () => {
     
-    const login = true;
+    const [isLogin , setIsLogin] = useState(false);
+
+    useEffect(()=>{
+        const token = localStorage.getItem('token');
+        const token2 = localStorage.getItem('token2');
+        if(token || token2){
+            setIsLogin(true)
+        }
+    },[])
 
     const navigate = useNavigate();
     const handleLogin = () => {
@@ -44,7 +53,7 @@ const Main = () => {
 
                 <Stack justifyContent={'space-between'} pt={4} direction={{ base: 'column', sm: 'row' }}>
                     <ThemeSelect />
-                    <Button rightIcon={<MdOutlineFileDownload />} onClick={login ? handlePrint : handleLogin } disabled={login ? false : true} colorScheme={'purple'}>{login ? 'Download' : "Login to Download"}</Button>
+                    <Button rightIcon={<MdOutlineFileDownload />} onClick={isLogin ? handlePrint : handleLogin } disabled={isLogin ? false : true} colorScheme={'purple'}>{isLogin ? 'Download' : "Login to Download"}</Button>
                 </Stack>
 
             </Container>

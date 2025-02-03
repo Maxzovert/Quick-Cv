@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import {
   Box,
   Button,
@@ -25,11 +26,26 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setIsLoading(true)
+    try {
+      const response = await axios.post('http://localhost:5000/api/user/login',{
+        email,
+        password
+      })
 
+      localStorage.setItem('token',response.data.token);
+      toast({
+        title : "Login Sucessfull"
+      })
+      
+      navigate("/")
+    } catch (error) {
+      throw new Error("Wrong Credential");
+      return;
+    }
   }
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword)

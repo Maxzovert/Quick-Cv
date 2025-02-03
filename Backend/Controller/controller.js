@@ -2,81 +2,68 @@ const User = require("../Model/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+// Signup
+const userSignUp = async (req, res) => {
+    console.log(req.body);
+    const { username, email, password } = req.body;  // Make sure "username" matches frontend
 
-//SignUp
-const userSignUp = async (req,res)=>{
-
-    console.log(req.body)
-    const {username , email,password} = req.body;
-
-    if(!username || !email || !password){
-        res.status(400);
-        throw new Error("All fields are mandatory");
-        return;
+    if (!username || !email || !password) {
+        return res.status(400).json({ message: "All fields are mandatory" });
     }
 
-    const userExists = await User.findOne({email});
-    if(userExists){
-        res.status(400);
-        throw new Error("User Already exists");
-        return;
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+        return res.status(400).json({ message: "User already exists" });
     }
 
-    const hashedPass = await bcrypt.hash(password , 10);
+    const hashedPass = await bcrypt.hash(password, 10);
 
     const user = await User.create({
         username,
         email,
-        password : hashedPass,
-    })
-    if(user){
+        password: hashedPass,
+    });
+
+    if (user) {
         res.status(201).json({
-            _id : user.id,
+            _id: user.id,
             email: user.email,
-        })
-    }else{
-        res.status(400); 
-        throw new Error("Userdata is not valid")
+        });
+    } else {
+        res.status(400).json({ message: "User data is not valid" });
     }
-    
 };
 
-//Login 
-const loginUser = async(req, res) => {
-    const {email , password} = req.body;
+// Login
+const loginUser = async (req, res) => {
+    const { email, password } = req.body;
 
-    if(!email || !password){
-        res.status(400);
-        throw new Error("All fields are mandatory");
-        return;
+    if (!email || !password) {
+        return res.status(400).json({ message: "All fields are mandatory" });
     }
 
-    const user = await User.findOne({email});
-    if(user && (await bcrypt.compare(password , user.password))){
-        const accessToken = jwt.sign({
-            uset: {
-                username : user.username,
-                email : user.email,
-                id : user.id
-            }
-        },
-        process.env.TOKEN_KEY,
-        {expiresIn : "15m"}
-    );
-        res.status(200).json({accessToken});
-        return;
-    }else{
-        res.status(401);
-        throw new Error("Invalid Credential"); 
+    const user = await User.findOne({ email });
+    if (user && (await bcrypt.compare(password, user.password))) {
+        const accessToken = jwt.sign(
+            {
+                user: { // Fixed typo from "uset" to "user"
+                    username: user.username,
+                    email: user.email,
+                    id: user.id
+                }
+            },
+            process.env.TOKEN_KEY,
+            { expiresIn: "15m" }
+        );
+        return res.status(200).json({ accessToken });
+    } else {
+        return res.status(401).json({ message: "Invalid credentials" });
     }
-
-    res.json({message :"Login SUcks"});
 };
 
+// Current User (For authentication checking)
+const currentUser = async (req, res) => {
+    return res.json({ message: "Current User data" });
+};
 
-const currentUser = async(req, res) => {
-    res.json({message :"Current User haji"});
-    return;
-}
-
-module.exports = {userSignUp , loginUser , currentUser};
+module.exports = { userSignUp, loginUser, currentUser };

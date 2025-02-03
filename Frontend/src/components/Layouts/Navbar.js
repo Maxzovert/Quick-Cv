@@ -9,8 +9,19 @@ import {
     Text,
     Button,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
+
+     const [isLogin , setIsLogin] = useState(false);
+    
+        useEffect(()=>{
+            const token = localStorage.getItem('token');
+            const token2 = localStorage.getItem('token2');
+            if(token || token2){
+                setIsLogin(true)
+            }
+        },[])
 
     const navigate = useNavigate();
 
@@ -22,6 +33,12 @@ const Navbar = () => {
     }
     const goToHome = () => {
         navigate('/');
+    }
+    const handleLogOut = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('token2');
+        setIsLogin(false);
+        navigate('/login')
     }
     return (
         <Stack
@@ -43,7 +60,16 @@ const Navbar = () => {
                     <Text as='a' href='#' fontSize='lg'>About</Text>
                     <Text colorScheme={'purple'} fontWeight={'medium'}>Contact</Text>
                 </HStack>
-                <HStack>
+                {isLogin? (<HStack>
+                    <Button
+                    className = "logSbtn" style={{
+                        background:"#5245A8",
+                        color:"white"
+                    }}
+                    onClick={handleLogOut}
+                    >Logout</Button>
+                </HStack>) :
+                (<HStack>
                     <Button className = "logSbtn" style={{
                         background:"#5245A8",
                         color:"white"
@@ -56,7 +82,7 @@ const Navbar = () => {
                     }}
                     onClick={handleSignUp}
                     >Signup</Button>
-                </HStack>
+                </HStack>)}
             </Flex>
 
         </Stack>

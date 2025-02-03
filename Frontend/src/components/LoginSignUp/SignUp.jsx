@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 import {
   Box,
   Button,
@@ -21,16 +22,32 @@ import {
 
 
 const SignUp = () => {
-  const [name, setName] = useState("")
+  const [username, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsLoading(true)
+
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/user/register',{
+        username,
+        email,
+        password
+      })
+
+      toast({
+        title : "Account Created",
+        duration : 3000,
+        isClosable : true
+      })
+      navigate("/");
+    } catch (error) {
+      throw new Error('User already exist')
+    }
 
   }
 
@@ -52,7 +69,7 @@ const SignUp = () => {
                     id="name"
                     type="name"
                     placeholder="Your Name"
-                    value={name}
+                    value={username}
                     onChange={(e) => setName(e.target.value)}
                   />
                 </FormControl>
@@ -91,7 +108,7 @@ const SignUp = () => {
 
                 </FormControl>
                 <Button type="submit" colorScheme="blue" width="full" loadingText="Logging in">
-                  Log in
+                  Create Account
                 </Button>
               </VStack>
             </form>
