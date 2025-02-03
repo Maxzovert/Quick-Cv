@@ -63,6 +63,7 @@ const Login = () => {
                       type={showPassword ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      placeholder="***********"
                     />
                     <InputRightElement>
                       <IconButton
