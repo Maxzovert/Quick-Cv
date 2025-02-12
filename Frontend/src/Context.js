@@ -21,6 +21,7 @@ export const ResumeProvider = ({ children }) => {
         linkedin: "",
         picture:"",
     });
+    const [summary , setSummary] = useState("");
 
     const [educationList, setEducationList] = useState([
         {
@@ -130,7 +131,7 @@ export const ResumeProvider = ({ children }) => {
     ]);
 
 
-    const value = { about, setAbout, educationList, setEducationList, skills, setSkills, workList, setWorkList, projects, setProjects, printElem, theme, setTheme };
+    const value = { about, setAbout,summary , setSummary,  educationList, setEducationList, skills, setSkills, workList, setWorkList, projects, setProjects, printElem, theme, setTheme };
 
     return (
         <ResumeContext.Provider value={value}>

@@ -1,6 +1,14 @@
 import React from 'react'
+import { useResume } from "../../Context"
 
 const Summary = () => {
+
+  const{summary , setSummary} = useResume();
+
+  const handleChange = (e) => {
+    // const { name, value } = e.target;
+    setSummary(e.target.value);
+  };
   return (
     <>
     <div>
@@ -17,6 +25,8 @@ const Summary = () => {
         padding : "10px",
         color : "gray"
     }}
+    onChange={(e)=>{handleChange(e)}}
+    value={summary}
     />
     <div style={{
       display : "flex",

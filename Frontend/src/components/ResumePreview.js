@@ -16,7 +16,7 @@ import { RiLinkedinBoxFill } from "react-icons/ri";
 import { BiLinkExternal } from "react-icons/bi";
 
 const ResumePreview = () => {
-  const { theme, about, educationList, skills, workList, projects, printElem } =
+  const { theme, about, summary , educationList, skills, workList, projects, printElem } =
     useResume();
     const imgStyle = {
       width:"115px",
@@ -85,11 +85,15 @@ const ResumePreview = () => {
           </HStack>
          
           
-          <VStack m={4} alignItems={"flex-start"} spacing={0.5} >
-          <HStack>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum veniam magnam sint. Fugit omnis illum ipsam excepturi, fuga distinctio exercitationem nam ab delectus cumque voluptatibus dolore sed accusantium ipsa modi possimus quos neque sunt impedit officiis. Quibusdam officia architecto sint iusto ad aliquam tempora commodi.</p>
-          </HStack>
-            </VStack>
+            <VStack m={4} alignItems={"flex-start"} spacing={0.5}>
+              <Heading as="h4" size="md" color={"gray.700"}>
+                 Summary
+               </Heading>
+                 <Text>
+                    {summary && summary.trim() !== "" ? summary : "Add detail about you or generate a profile summary using AI"}
+                </Text>
+              </VStack>
+
           <HStack
             w={"full"}
             h={"full"}
