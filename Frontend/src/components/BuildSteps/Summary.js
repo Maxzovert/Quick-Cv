@@ -1,28 +1,35 @@
 import React, { useState } from 'react'
 import { useResume } from "../../Context"
-import { AIChatSession } from "../../AiModal"
+import { AIChatSession } from "../../AiModal";
+import { Button, ButtonGroup, Img } from "@chakra-ui/react"
+import { Spinner } from "@chakra-ui/react";
+import aiSpin from "../../images/aiSpin.png"
 
 
 
 const Summary = () => {
 
   const{about ,summary , setSummary} = useResume();
-  // const[aiGeneratedSummary , setAiGeneratedSummary]=useState("");
-  const prompt = `Job Title : ${about.role}, Depend on job title give me a summary for my resume with in 4-5 lines`
+  const[generating, setGenerating]=useState(false);
+  const prompt = `Job Title : ${about.role}, Depend on job title give me a summary for my resume with in 4-5 lines`;
+  const [count,  setCount] = useState(0);
 
   const handleChange = (e) => {
     // const { name, value } = e.target;
     setSummary(e.target.value);
   };
 
-  //AI Summary Generator
 
+  //AI Summary Generator
   const GenerateSummary = async() => {
     const PROMPT = prompt;
     console.log(PROMPT)
+    setGenerating(true)
     const result = await AIChatSession.sendMessage(PROMPT)
     console.log(result.response.text());
     setSummary(result.response.text())
+    setGenerating(false);
+    setCount(1)
   }
   return (
     <>
@@ -50,12 +57,11 @@ const Summary = () => {
       marginTop  : "1.5rem"
     }}>      
     
-   <button 
+   <Button 
     type="submit"
     style={{
-        cursor:"pointer",
         height:"3rem",
-        width:"5rem",
+        width:"6rem",
         backgroundColor: "#5245A8",
         marginRight : "20px",
         borderRadius : "8px",
@@ -64,20 +70,28 @@ const Summary = () => {
         
     }}
     
-   >ADD</button>
-   <button 
+   >ADD</Button>
+   <Button 
     type="submit"
     style={{
-        cursor:"pointer",
         height:"3rem",
         width:"6rem",
-        backgroundColor: "#5245A8",
+        color: "#5245A8",
         borderRadius : "8px",
-        color: "white",
         fontSize : "1.2rem"
     }} 
     onClick={() => GenerateSummary()}
-   >Using Ai</button>
+   > {generating ? (
+    <Spinner />
+  ) : count === 0 ? (
+    <>
+    AI <Img src={aiSpin} alt="AI Spinner" width="20px" marginLeft="4px" />
+    </>
+  ) : (
+    <>
+      Again <Img src={aiSpin} alt="AI Spinner" width="20px" marginLeft="4px" />
+    </>
+  )}</Button>
    </div>
     </>
   )
