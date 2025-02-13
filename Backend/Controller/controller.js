@@ -53,7 +53,7 @@ const loginUser = async (req, res) => {
                 }
             },
             process.env.TOKEN_KEY,
-            { expiresIn: "15m" }
+            { expiresIn: "2m" }
         );
         return res.status(200).json({ accessToken });
     } else {

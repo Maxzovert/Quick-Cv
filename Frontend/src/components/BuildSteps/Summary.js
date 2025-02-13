@@ -1,14 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useResume } from "../../Context"
+import { AIChatSession } from "../../AiModal"
+
+
 
 const Summary = () => {
 
-  const{summary , setSummary} = useResume();
+  const{about ,summary , setSummary} = useResume();
+  // const[aiGeneratedSummary , setAiGeneratedSummary]=useState("");
+  const prompt = `Job Title : ${about.role}, Depend on job title give me a summary for my resume with in 4-5 lines`
 
   const handleChange = (e) => {
     // const { name, value } = e.target;
     setSummary(e.target.value);
   };
+
+  //AI Summary Generator
+
+  const GenerateSummary = async() => {
+    const PROMPT = prompt;
+    console.log(PROMPT)
+    const result = await AIChatSession.sendMessage(PROMPT)
+    console.log(result.response.text());
+    setSummary(result.response.text())
+  }
   return (
     <>
     <div>
@@ -18,7 +33,7 @@ const Summary = () => {
     type="text"
     style={{
         border:"2px grey solid",
-        height: "8rem",
+        height: "10rem",
         width:"100%",
         borderRadius: "20px",
         marginTop:"15px",
@@ -61,6 +76,7 @@ const Summary = () => {
         color: "white",
         fontSize : "1.2rem"
     }} 
+    onClick={() => GenerateSummary()}
    >Using Ai</button>
    </div>
     </>
