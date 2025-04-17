@@ -34,6 +34,9 @@ const Navbar = () => {
     const goToHome = () => {
         navigate('/');
     }
+    const gotoTemplets = () => {
+        navigate('/templets')
+    }
     const handleLogOut = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('token2');
@@ -56,7 +59,7 @@ const Navbar = () => {
                     <Button as='a' href='#' fontSize='lg'
                     onClick={goToHome}
                     >Home</Button>
-                    <Text as='a' href='#' fontSize='lg'>Templates</Text>
+                    <Button as='a' fontSize='lg' onClick={gotoTemplets}>Templates</Button>
                     <Text as='a' href='#' fontSize='lg'>About</Text>
                     <Text colorScheme={'purple'} fontWeight={'medium'}>Contact</Text>
                 </HStack>
