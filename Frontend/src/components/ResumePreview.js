@@ -8,7 +8,7 @@ import TemplatesFour from "../Pages/Tamplates/TemplatesFour";
 import TemplatesFive from "../Pages/Tamplates/TemplatesFive";
 
 const ResumePreview = () => {
-  const [Templet, setTemplet] = useState("1");
+  const [Templet, setTemplet] = useState("5");
   const { theme } = useResume();
 
   const imgStyle = {
