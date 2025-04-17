@@ -9,6 +9,7 @@ import WebFont from 'webfontloader';
 import { BrowserRouter as Router, Route, Routes , useLocation} from 'react-router-dom';
 import Login from './components/LoginSignUp/Login'; 
 import Signup from './components/LoginSignUp/SignUp';
+import TempletsOne from "./Pages/Tamplates/TemplatesOne"
 function App() {
 
   useEffect(() => {
@@ -36,15 +37,20 @@ const ConditionalRendering = () => {
   return(
     <Routes>
     <Route path="/login" element={<Login />} /> 
-    <Route path="/signup" element={<Signup />} /> 
+    <Route path="/signup" element={<Signup />} />
   </Routes>
   );
 }
   return(
-    <>
-            <Header />
-            <Main />
-    </>
+    <Routes>
+      <Route path="/" element={
+        <>
+                   <Header />
+                   <Main />
+                   </>
+      }/>
+       <Route path="/templets" element={<TempletsOne/>} />
+       </Routes>
   )
 }
 
