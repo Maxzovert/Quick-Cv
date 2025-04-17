@@ -8,8 +8,8 @@ import TemplatesFour from "../Pages/Tamplates/TemplatesFour";
 import TemplatesFive from "../Pages/Tamplates/TemplatesFive";
 
 const ResumePreview = () => {
-  const [Templet, setTemplet] = useState("5");
-  const { theme } = useResume();
+  const [Templet, setTemplet] = useState("2");
+  const { theme , selectedTemplate } = useResume();
 
   const imgStyle = {
     width: "115px",
@@ -25,7 +25,7 @@ const ResumePreview = () => {
   );
 
   const renderTemplate = () => {
-    switch (Templet) {
+    switch (selectedTemplate) {
       case "1":
         return <TemplatesOne />;
       case "2":

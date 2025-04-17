@@ -12,6 +12,8 @@ import Two from "../../images/TempletPreviews/Two.png";
 import Three from "../../images/TempletPreviews/Three.png";
 import Four from "../../images/TempletPreviews/Four.png";
 import Five from "../../images/TempletPreviews/Five.png";
+import { useResume } from "../../Context";
+import {useNavigate} from "react-router-dom"
 
 const TemplatesScreen = () => {
   const IMAGES = [
@@ -23,6 +25,14 @@ const TemplatesScreen = () => {
   ];
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  
+  const navigate = useNavigate();
+  const { setSelectedTemplate } = useResume();
+  const handleSelect = (id) => {
+    setSelectedTemplate(String(id)); 
+    navigate('/#builder')
+  };
+
 
   return (
     <Box px={6} py={8}>
@@ -34,7 +44,7 @@ const TemplatesScreen = () => {
           <Box
             key={IMG.id}
             position="relative"
-            width={["100%", "45%"]} // Two per row
+            width={["100%", "45%"]} 
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
             transition="transform 0.3s ease, filter 0.3s ease"
@@ -63,6 +73,7 @@ const TemplatesScreen = () => {
               colorScheme="teal"
               variant="solid"
               zIndex={1}
+              onClick={() => handleSelect(IMG.id)}
             >
               Select
             </Button>

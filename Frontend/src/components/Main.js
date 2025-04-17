@@ -13,7 +13,7 @@ import ThemeSelect from './Theme/ThemeSelect';
 import { useReactToPrint } from 'react-to-print';
 import { useResume } from '../Context';
 import { MdOutlineFileDownload } from 'react-icons/md';
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { useEffect, useState } from "react";
 
 const Main = () => {
@@ -53,6 +53,9 @@ const Main = () => {
 
                 <Stack justifyContent={'space-between'} pt={4} direction={{ base: 'column', sm: 'row' }}>
                     <ThemeSelect />
+                    <Link to={"/templets"} style={{marginLeft:"680px"}}> 
+                    <Button colorScheme={'purple'}>Templates</Button>
+                    </Link>
                     <Button rightIcon={<MdOutlineFileDownload />} onClick={isLogin ? handlePrint : handleLogin } disabled={isLogin ? false : true} colorScheme={'purple'}>{isLogin ? 'Download' : "Login to Download"}</Button>
                 </Stack>
 
