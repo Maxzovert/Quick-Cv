@@ -6,7 +6,6 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-
 import One from "../../images/TempletPreviews/One.png";
 import Two from "../../images/TempletPreviews/Two.png";
 import Three from "../../images/TempletPreviews/Three.png";

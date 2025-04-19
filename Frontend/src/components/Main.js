@@ -53,7 +53,7 @@ const Main = () => {
 
                 <Stack justifyContent={'space-between'} pt={4} direction={{ base: 'column', sm: 'row' }}>
                     <ThemeSelect />
-                    <Link to={"/templets"} style={{marginLeft:"680px"}}> 
+                    <Link to={"/templets"} style={{marginLeft:"640px"}}> 
                     <Button colorScheme={'purple'}>Templates</Button>
                     </Link>
                     <Button rightIcon={<MdOutlineFileDownload />} onClick={isLogin ? handlePrint : handleLogin } disabled={isLogin ? false : true} colorScheme={'purple'}>{isLogin ? 'Download' : "Login to Download"}</Button>
